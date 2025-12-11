@@ -1,0 +1,129 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Companies House UK Plugin",
+    "version": "1.0.0",
+    "description": "Access UK company data from the Companies House API. Includes company profiles, registered addresses, officers, filings, and charges."
+  },
+  "paths": {
+    "/GetCompanyByNumber": {
+      "post": {
+        "operationId": "GetCompanyByNumber",
+        "summary": "Get company profile by company number",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyNumberParam"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Company profile"
+          }
+        }
+      }
+    },
+    "/GetRegisteredOfficeAddress": {
+      "post": {
+        "operationId": "GetRegisteredOfficeAddress",
+        "summary": "Get registered office address",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyNumberParam"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registered office address"
+          }
+        }
+      }
+    },
+    "/GetCompanyOfficers": {
+      "post": {
+        "operationId": "GetCompanyOfficers",
+        "summary": "Get list of company officers",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyNumberParam"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List of officers"
+          }
+        }
+      }
+    },
+    "/GetCompanyFilingList": {
+      "post": {
+        "operationId": "GetCompanyFilingList",
+        "summary": "Get company filing history",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyNumberParam"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Filing history"
+          }
+        }
+      }
+    },
+    "/GetCompanyChargeList": {
+      "post": {
+        "operationId": "GetCompanyChargeList",
+        "summary": "Get list of company charges",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyNumberParam"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List of charges"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CompanyNumberParam": {
+        "type": "object",
+        "properties": {
+          "companyNumber": {
+            "type": "string",
+            "description": "The registered UK company number (e.g. 00002065)"
+          }
+        },
+        "required": ["companyNumber"]
+      }
+    }
+  }
+}
