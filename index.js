@@ -6,7 +6,8 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-function getCompaniesHouseClient() {
+// 🔐 This function reads the API key from your environment settings on Render
+function getClient() {
   const token = process.env.COMPANIES_HOUSE_API_KEY;
   const encodedToken = Buffer.from(`${token}:`).toString('base64');
   return axios.create({
@@ -17,9 +18,10 @@ function getCompaniesHouseClient() {
   });
 }
 
-const client = getCompaniesHouseClient();
+const client = getClient();
 
-app.get('/searchCompanies', async (req, res) => {
+// 🔍 SEARCH COMPANIES
+app.get('/searchcompanies', async (req, res) => {
   const { q } = req.query;
   try {
     const response = await client.get(`/search/companies?q=${encodeURIComponent(q)}`);
@@ -29,7 +31,8 @@ app.get('/searchCompanies', async (req, res) => {
   }
 });
 
-app.get('/getCompanyByNumber', async (req, res) => {
+// 🧾 GET COMPANY PROFILE
+app.get('/getcompanybynumber', async (req, res) => {
   const { companyNumber } = req.query;
   try {
     const response = await client.get(`/company/${companyNumber}`);
@@ -39,7 +42,8 @@ app.get('/getCompanyByNumber', async (req, res) => {
   }
 });
 
-app.get('/getCompanyOfficers', async (req, res) => {
+// 👤 GET COMPANY OFFICERS
+app.get('/getcompanyofficers', async (req, res) => {
   const { company_number } = req.query;
   try {
     const response = await client.get(`/company/${company_number}/officers`);
